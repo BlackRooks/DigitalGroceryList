@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{{ request.user.username|upper }}'S PANTRY</h1>
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card card-body">
+                <h5>Total Items</h5>
+                <hr>
+                <h1 style="text-align:center;padding:10px">{{ pantryItems|length }}</h1>
+            </div>
+        </div>
+        <div class="col-md">
+            <div class="card card-body w-100 h-100" style="background-color: #C9AD91">
+                <h5>Notification</h5>
+                <hr>
+                <div class="notification-container" style="flex-direction: row; ">
+                    {% for item in pantryItems %}
+                        {% if item.is_expired %}
+                            <div class="alert alert-danger d-inline-block">
+                                {{ item.name }} has expired!
+                            </div>
+                        {% elif item.is_expiring_soon %}
+                            <div class="alert alert-warning d-inline-block">
+                                {{ item.name }} will expire in {{ item.expiration_date|timeuntil }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% include "features/add_item_to_pantry.html" %}
+    <div class="row">
+        <div class="col-md">
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <th><h5><b>Product</b></h5></th>
+                        <th><h5><b>Quantity</b></h5></th>
+                        <th><h5><b>Unit</b></h5></th>
+                        <th><h5><b>Purchase Date</b></h5></th>
+                        <th><h5><b>Expiration Date</b></h5></th>
+                        <th><h5><b>Category</b></h5></th>
+                        <th><h5><b>Status</b></h5></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    {# Category Display Reference: https://stackoverflow.com/questions/66709138/how-to-display-a-list-of-posts-in-a-list-of-categories-in-django#}
+                    {% regroup pantryItems by name.category as category_list %}
+                    {% for category in category_list %}
+                        <tr class="table-secondary">
+                            <td colspan="7"><strong>{{ category.grouper }}</strong></td>
+                        </tr>
+                        {% for pantry_item in category.list %}
+                            <tr>
+                                <td>{{ pantry_item.name }}</td>
+                                <td>{{ pantry_item.quantity }}</td>
+                                <td>{{ pantry_item.unit }}</td>
+                                <td>{{ pantry_item.purchase_date }}</td>
+                                <td>{{ pantry_item.expiration_date }}</td>
+                                <td>{{ pantry_item.name.category }}
+                                <td>
+                                    {% if pantry_item.status == 'In stock' %}
+                                        <span class="badge bg-success">In stock</span>
+                                    {% elif pantry_item.status == 'Low' %}
+                                        <span class="badge bg-warning">Low</span>
+                                    {% elif pantry_item.status == 'Out of stock' %}
+                                        <span class="badge bg-danger">Out of stock</span>
+                                    {% endif %}
+                                </td>
+                                <td><a class="btn btn-sm btn-outline-info"
+                                       href="{% url "update_pantry_item" pantry_item.id %}"><i class="bi bi-pen"></i></a>
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-danger" href="{% url "delete_pantry_item" pantry_item.id%}"
+                                       onclick="return confirm('Are you sure you want to delete this list?');">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

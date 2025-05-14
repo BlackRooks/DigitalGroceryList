@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Grocery Products</h1>
+    <br>
+    <div class="row">
+        <div class="col">
+            <form method="GET">
+                <div class="card card-body">
+                    <button class="btn {% if request.GET.store == 'Aldi' %}btn-success{% else %}btn-primary{% endif %}"
+                            name="store" type="submit" value="Aldi">Aldi
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <form method="GET">
+                <div class="card card-body">
+                    <button class="btn {% if request.GET.store == "Tesco" %}btn-success{% else %}btn-primary{% endif %}" name="store" type="submit" value="Tesco">Tesco</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <form method="GET">
+                <div class="card card-body">
+                    <button class="btn {% if request.GET.store == "ASDA" %}btn-success{% else %}btn-primary{% endif %}" name="store" type="submit" value="ASDA">Asda</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <form method="GET">
+                <div class="card card-body">
+                    <button class="btn {% if request.GET.store == "Sains" %}btn-success{% else %}btn-primary{% endif %}" name="store" type="submit" value="Sains">Sainbury's</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <form method="GET">
+                <div class="card card-body">
+                    <button class="btn {% if request.GET.store == "Morrisons" %}btn-success{% else %}btn-primary{% endif %}" name="store" type="submit" value="Morrisons">Morrisons</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <div class="card card-body">
+                <form class="d-flex align-items-center gap-2 justify-content-end" method="GET">
+                    <div class="d-flex align-items-center">
+                        <label class="me-2 mb-0">{{ product_filter.form.label }}</label>
+                        {{ product_filter.form }}
+                    </div>
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row justify-content-center">
+        {% include "features/paginator.html" %}
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md">
+            <div class="card card-body">
+                <table>
+                    <tr>
+                        <th><b>Name</b></th>
+                        <th><b>Brand</b></th>
+                        <th><b>Quantity</b></th>
+                        <th><b>Price</b></th>
+                        <th><b>PPU</b></th>
+                        <th><b>Store</b></th>
+                    </tr>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{ product.product.name }}</td>
+                            <td>{{ product.product.brand.name }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.unit_price }}</td>
+                            <td>{{ product.store.company.name }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

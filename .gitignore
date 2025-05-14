@@ -1,0 +1,13 @@
+**/.DS_Store
+backup/
+*/settings.py
+*.csv
+__pycache__/
+*.pyc
+
+# Python environment
+.env
+.venv/
+env/
+venv/
+static/

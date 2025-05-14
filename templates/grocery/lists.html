@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+    <br>
+    <div class="card card-body">
+        <h5>Your List</h5>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-6 col-md-4">
+            {% include "features/add_list.html" %}
+        </div>
+        <div class="col-md">
+            <div class="card card-body">
+                <table class="table">
+                    <tr>
+                        <th>User</th>
+                        <th>Title</th>
+                        <th>Created Date</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    {% for list in lists %}
+                        <tr>
+                            {#                            <td>#}
+                            {#                                <input type="checkbox" id="list_{{ list.id }}" name="list_checkbox"#}
+                            {#                                       value="{{ list.id }}" style="transform: scale(1.5);"#}
+                            {#                                       onchange="if (confirm('Are you sure you want to toggle, to save to pantry?')){ toggleStrikeThrough(this, 'name_{{ list.id }}'); this.disabled = true; }">#}
+                            {#                            </td>#}
+                            <td>{{ list.user }}</td>
+                            <td id="name_{{ list.id }}">{{ list.name }}</td>
+                            <td>{{ list.created_at }}</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="{% url 'save_list_to_pantry' list.id %}"
+                                   onclick="return confirm('Are you sure you want to save to pantry?');">
+                                    Save</a>
+                            </td>
+                            <td><a class="btn btn-sm btn-info" href="{% url 'grocery_list' list.id %}">
+                                View</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-sm btn-danger" href="{% url 'delete_list' list.id %}"
+                                   onclick="return confirm('Are you sure you want to delete this list?');">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

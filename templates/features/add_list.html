@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <form method="POST" action="{% url 'add_list' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="list_name">List Name:</label>
+                    <input type="text" class="form-control" id="list_name" name="list_name"
+                           placeholder="Enter list name" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm btn-block">Add List</button>
+            </form>
+        </div>
+    </div>
+    {% include "features/flash_message.html" %}
+</div>

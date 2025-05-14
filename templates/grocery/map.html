@@ -1,0 +1,79 @@
+{#Reference: https://github.com/googlemaps/google-maps-services-python#}
+{#Google Maps JavaScript API documentation: https://developers.google.com/maps/documentation/javascript/overview#}
+{#Google Cloud Console (for API key setup): https://console.cloud.google.com#}
+{#https://github.com/hemrajmalhi/Django-project-with-Google-Maps-API-integration/blob/master/templates/apiapp/map.html#}
+{% extends "base.html" %}
+{% block content %}
+    <h3>Map - Google Map Api</h3>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async
+            defer></script>
+
+    <hr><br>
+    <!-- Map container -->
+    <div class="row">
+        <div class="col-sm-6 ">
+            <p>Address</p>
+            <p>Postcode</p>
+            <p>City</p>
+            <p>Country</p>
+        </div>
+        <div class="col-sm-6 ">
+            <div id="map" style="height: 400px;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: {lat: 52.95811, lng: -1.154903},
+                zoom: 18,
+            });
+
+            const marker = new google.maps.Marker({
+                position: {lat: 52.95811, lng: -1.154903},
+                map: map,
+                title: "Location Name"
+            });
+            {% comment %}
+                        const geocoder = new google.maps.Geocoder();
+                        geocoder.geocode({address: "Your Address"}, (results, status) => {
+                            if (status === "OK") {
+                                const location = results[0].geometry.location;
+                                map.setCenter(location);
+                                new google.maps.Marker({
+                                    position: location,
+                                    map: map
+                                });
+                            }
+                        });{% endcomment %}
+        }
+    </script>
+{#  Reference:  https://developers.google.com/maps/documentation/javascript/places?_gl=1*5xq23s*_up*MQ..*_ga*MTAwODA4OTIuMTc0NTE2MDM0NA..*_ga_NRWSTWS78N*MTc0NTE2MDM0My4xLjEuMTc0NTE2MDM0My4wLjAuMA..#}
+{#    <script>#}
+{#        function initMap() {#}
+{#            var sydney = new google.maps.LatLng(-33.867, 151.195);#}
+{##}
+{#            infowindow = new google.maps.InfoWindow();#}
+{##}
+{#            map = new google.maps.Map(#}
+{#                document.getElementById('map'), {center: sydney, zoom: 15});#}
+{##}
+{#            var request = {#}
+{#                query: 'Museum of Contemporary Art Australia',#}
+{#                fields: ['name', 'geometry'],#}
+{#            };#}
+{##}
+{#            var service = new google.maps.places.PlacesService(map);#}
+{##}
+{#            service.findPlaceFromQuery(request, function (results, status) {#}
+{#                if (status === google.maps.places.PlacesServiceStatus.OK) {#}
+{#                    for (var i = 0; i < results.length; i++) {#}
+{#                        createMarker(results[i]);#}
+{#                    }#}
+{#                    map.setCenter(results[0].geometry.location);#}
+{#                }#}
+{#            });#}
+{#        }#}
+{#    </script>#}
+{% endblock %}

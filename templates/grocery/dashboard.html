@@ -1,0 +1,83 @@
+{#Reference: https://github.com/giljr/crm_django_project#}
+{% extends "base.html" %}
+{% block content %}
+    <h1>Hi {{ currentUser }}</h1>
+    <br>
+    <div class="row">
+        {% if list %}
+            <div class="col-md-5">
+                <h5>Current List:</h5>
+                <hr>
+                <div class="card card-body">
+                    <p style="text-align: center;font-weight: bold">{{ list_name }}</p>
+                    <table class="table table-sm">
+                        <tr>
+                            <th><b>Item</b></th>
+                            <th><b>Quantity</b></th>
+                            <th><b>Category</b></th>
+                        </tr>
+                        {% for item in items %}
+                            <tr>
+                                <td>{{ item.item.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.item.category }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            {% include "features/add_item_form.html" %}
+                        </tr>
+                    </table>
+                    {#                <button type="submit" form="addItem" class="btn btn-primary btn-sm btn-block">Add Item</button>#}
+
+                    <a class="btn btn-secondary btn-sm btn-block" href="{% url 'grocery_list' list.id %}">View</a>
+
+                </div>
+                {% include "features/flash_message.html" %}
+            </div>
+        {% else %}
+            <div class="col-md">
+                <h5>Add New List:</h5>
+                <hr>
+                {% include "features/add_list.html" %}
+            </div>
+        {% endif %}
+
+        <div class="col-md">
+            <h5>Pantry:</h5>
+            <hr>
+            <div class="card card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <th><b>Product</b></th>
+                        <th><b>Quantity</b></th>
+                        <th><b>Unit</b></th>
+                        <th><b>Purchase Date</b></th>
+                        <th><b>Expiration Date</b></th>
+                        <th><b>Category</b></th>
+                        <th><b>Status</b></th>
+                    </tr>
+                    {% for pantry_item in pantryItems %}
+                        <tr>
+                            <td>{{ pantry_item.name }}</td>
+                            <td>{{ pantry_item.quantity }}</td>
+                            <td>{{ pantry_item.unit }}</td>
+                            <td>{{ pantry_item.purchase_date }}</td>
+                            <td>{{ pantry_item.expiration_date }}</td>
+                            <td>{{ pantry_item.name.category }}
+                            <td>
+                                {% if pantry_item.status == 'In stock' %}
+                                    <span class="badge bg-success">In stock</span>
+                                {% elif pantry_item.status == 'Low' %}
+                                    <span class="badge bg-warning">Low</span>
+                                {% elif pantry_item.status == 'Out of stock' %}
+                                    <span class="badge bg-danger">Out of stock</span>
+                                {% endif %}
+                            </td>
+
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

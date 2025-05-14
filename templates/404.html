@@ -1,0 +1,183 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href={% static "style.css" %}>
+    <style>        @font-face {
+        font-family: 'ButterCup';
+        src: url("/static/fonts/Buttercup.ttf");
+    }
+
+    @font-face {
+        font-family: 'ButterBold';
+        src: url("/static/fonts/Buttercupbold.ttf");
+    }
+
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        font-family: 'ButterCup', sans-serif;
+        font-weight: normal;
+    }
+
+    strong, b {
+        font-family: 'ButterBold', sans-serif;
+        font-weight: bold;
+    }
+
+    input[type=checkbox]:checked + .items-label {
+        text-decoration: line-through;
+        color: red;
+    }
+
+    /**/
+    body {
+        font-family: "ButterCup";
+        font-size: 14px;
+        margin: 0;
+        color: #4E4E50;
+    }
+
+    input, textarea, select, button {
+        font-family: "ButterCup";
+    }
+
+    p, h1, h2, h3, h4, h5, h6, ul {
+        margin: 0;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    ul {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: red;
+    }
+
+    :focus {
+        outline: none;
+    }
+
+    .wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    {#background: #F4A29C;#}
+    }
+
+    .inner {
+        position: relative;
+        width: 435px;
+    }
+
+    form {
+        width: 100%;
+        position: relative;
+        z-index: 9;
+        padding: 77px 61px 66px;
+        background: #fff;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        -ms-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        -o-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    h3 {
+        text-transform: uppercase;
+        font-size: 25px;
+        font-family: "ButterBold", sans-serif;
+        color: #4E4E50;
+        letter-spacing: 3px;
+        text-align: center;
+        margin-bottom: 33px;
+    }
+
+    .form-holder span {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 15px;
+        color: #333;
+    }
+
+    .form-holder span.lnr-lock {
+        left: 2px;
+    }
+
+    button {
+        border: none;
+        width: 100%;
+        height: 49px;
+        margin-top: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        background: #99ccff;
+        color: #fff;
+        text-transform: uppercase;
+        font-family: "ButterBold";
+        font-size: 15px;
+        letter-spacing: 2px;
+        transition: all 0.5s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    button span {
+        position: relative;
+        z-index: 2;
+    }
+
+    button:before, button:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background-color: rgba(52, 152, 253, 0.25);
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
+        -webkit-transform: translate(-100%, 0);
+        transform: translate(-100%, 0);
+        -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+        transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+    }
+
+    button:after {
+        -webkit-transition-delay: 0.2s;
+        transition-delay: 0.2s;
+    }
+
+    button:hover:before, button:hover:after {
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+    }    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="inner"><h1 style="font-size: 10em;">404</h1>
+        <p style="font-size: 2em;">Something happened. I'm Sorry.</p></div>
+</div>
+</body>
+</html>
